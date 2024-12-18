@@ -1,17 +1,203 @@
-$bgColor: #24292e;
-$text: #fff;
+@import './swiper-bundle.min.css';
+@import './mobil-version-style.css';
+@import './style-sidebar.css';
+@import './style-brandswiper.css';
 
+$font-ttlakes-regular: "TTLakes Regular";
+$font-ttlakes-bold: "TTLakes Bold";
+$font-ttlakes-medium: "TTLakes Medium";
+$font-ttlakes-extrabold: "TTLakes ExtraBold";
+
+$color-background: #F8F8F8;
+$color-gray: #7E7E82;
+$color-white: #FFFFFF;
+$color-dark: #1B1C21;
+$color-pink: #FF3E79;
+$color-gray-light: #B5B6BC;
+$color-border: #EAEAEA;
+
+$font-base: 14px;
+
+// Подключение шрифтов
 @font-face {
-  font-family: 'Comic';
-  src: url('../fonts/comic.ttf') format('truetype');
+  font-family: $font-ttlakes-regular;
+  src: local("TTLakes-Regular"), url("../fonts/TTLakes-Regular.woff") format("woff");
   font-weight: normal;
-  font-style: italic;
+}
+@font-face {
+  font-family: $font-ttlakes-bold;
+  src: local("TTLakes-Bold"), url("../fonts/TTLakes-Bold.woff") format("woff");
+  font-weight: bold;
+}
+@font-face {
+  font-family: $font-ttlakes-medium;
+  src: local("TTLakes-Medium"), url("../fonts/TTLakes-Medium.woff") format("woff");
+  font-weight: medium;
+}
+@font-face {
+  font-family: $font-ttlakes-extrabold;
+  src: local("TTLakes-ExtraBold"), url("../fonts/TTLakes-ExtraBold.woff") format("woff");
+  font-weight: extrabold;
 }
 
-body {
-  padding: 1rem;
+// Глобальные стили
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: Comic, sans-serif;
-  background-color: $bgColor;
-  color: $text;
+  padding: 0;
+}
+
+.body {
+  background-color: $color-background;
+}
+
+.devices-heading, .price-heading {
+  font-family: $font-ttlakes-medium;
+  color: $color-gray;
+  margin: 32px 16px 24px 16px;
+  display: block;
+  padding: 10px 0;
+  background: linear-gradient(to right, $color-background, $color-white 100%);
+}
+
+// Списки устройств
+.devices-list {
+  display: flex;
+  justify-content: start;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin-left: 16px;
+  row-gap: 16px;
+  min-width: 0;
+
+  &__item {
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+    align-items: start;
+    width: 240px !important;
+    height: 160px;
+    background-color: $color-white;
+    border-radius: 6px;
+    font-family: $font-ttlakes-medium;
+    color: $color-dark;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      border: 2px solid $color-pink;
+      border-radius: 50%;
+      background: $color-white url(../images/dropdown.png) no-repeat center;
+      align-self: flex-end;
+    }
+  }
+}
+
+.swiper-wrapper {
+  margin-bottom: 36px;
+}
+
+.swiper-pagination {
+  &-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #DDDDDD;
+    opacity: 1;
+
+    &-active {
+      background-color: $color-gray-light;
+    }
+  }
+}
+
+// Кнопка "expand"
+.expend {
+  border: none;
+  color: $color-dark;
+  font-family: $font-ttlakes-medium;
+  font-size: 16px;
+  margin-left: 50px;
+  position: relative;
+  vertical-align: middle;
+  display: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    width: 7px;
+    height: 10px;
+    background-image: url(../images/down-arrow.svg);
+    position: absolute;
+    left: -17px;
+    top: 6px;
+    display: block;
+  }
+}
+
+// Модалка обратной связи
+.feedback-wrapper, .callback-wrapper {
+  width: 100%;
+  max-width: 440px;
+  background-color: $color-white;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: -440px;
+  transition: transform 400ms ease-in, opacity 400ms ease-in;
+  z-index: 2;
+  opacity: 0;
+
+  &.open {
+    transform: translateX(-440px);
+    opacity: 1;
+  }
+}
+
+// Кнопка закрытия
+.close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $color-pink url(../images/close.svg) no-repeat center;
+  margin: 24px 17px 0;
+}
+
+// Адаптивные стили
+@media screen and (min-width: 768px) {
+  .devices-list {
+    flex-wrap: wrap;
+    column-gap: 24px;
+  }
+
+  .expend {
+    display: block;
+
+    &.active::before {
+      transform: rotate(180deg);
+    }
+  }
+
+  .price-list-inline {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .body {
+    max-width: 1440px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .devices-heading, .price-heading {
+    margin: 32px 0 24px 32px;
+  }
+
+  .devices-list {
+    margin-left: 32px;
+  }
 }
