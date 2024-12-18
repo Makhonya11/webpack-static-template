@@ -21,3 +21,5 @@ background.addEventListener('click', function(){
     background.style.display = 'none';
     body.style.overflowY = 'visible';
 });
+
+export {background, body};
